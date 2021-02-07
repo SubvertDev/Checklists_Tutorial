@@ -9,32 +9,44 @@ import UIKit
 
 class ChecklistViewController: UITableViewController {
     
+    var items = [ChecklistItem]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let item1 = ChecklistItem()
+        item1.text = "Programming"
+        items.append(item1)
+        
+        let item2 = ChecklistItem()
+        item2.text = "Read a book"
+        items.append(item2)
+        
+        let item3 = ChecklistItem()
+        item3.text = "Go to bed before midnight"
+        items.append(item3)
+        
     }
     
     //MARK: - TableView Data Source Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return items.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
         
-        let label = cell.viewWithTag(1) as! UILabel
+        let item = items[indexPath.row]
         
-        if indexPath.row % 5 == 0 {
-            label.text = "First line"
-        } else if indexPath.row % 5 == 1  {
-            label.text = "Second line"
-        } else if indexPath.row % 5 == 2  {
-            label.text = "Third line"
-        } else if indexPath.row % 5 == 3  {
-            label.text = "Fourth line"
-        } else if indexPath.row % 5 == 4  {
-            label.text = "Fifth line"
+        let label = cell.viewWithTag(1) as! UILabel
+        label.text = item.text
+        
+        if item.checkmark {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
         }
         
         return cell
@@ -44,11 +56,15 @@ class ChecklistViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let item = items[indexPath.row]
+        
         if let cell = tableView.cellForRow(at: indexPath) {
-            if cell.accessoryType == .checkmark {
+            if item.checkmark {
                 cell.accessoryType = .none
+                item.checkmark = false
             } else {
                 cell.accessoryType = .checkmark
+                item.checkmark = true
             }
         }
         
