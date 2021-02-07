@@ -15,6 +15,8 @@ class ChecklistViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         let item1 = ChecklistItem()
         item1.text = "Programming"
         items.append(item1)
@@ -37,7 +39,7 @@ class ChecklistViewController: UITableViewController {
         
     }
     
-    //MARK: - TableView Data Source Methods
+    //MARK: - TableView Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -61,7 +63,7 @@ class ChecklistViewController: UITableViewController {
         return cell
     }
     
-    //MARK: - TableView Delegate Methods
+    //MARK: - TableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -83,6 +85,23 @@ class ChecklistViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    //MARK: - Actions
+    
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+        
+        let newRowIndex = items.count
+        
+        let newItem = ChecklistItem()
+        newItem.text = "New row from add button"
+        items.append(newItem)
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        
+    }
+    
     
 }
 

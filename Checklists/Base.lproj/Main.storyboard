@@ -30,7 +30,13 @@
                             <outlet property="delegate" destination="3KQ-zz-H18" id="Sq1-1F-t3y"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Checklists" id="X6C-XM-LPn"/>
+                    <navigationItem key="navigationItem" title="Checklists" id="X6C-XM-LPn">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0aY-4s-kKG">
+                            <connections>
+                                <action selector="addItem:" destination="3KQ-zz-H18" id="A3x-ao-cnf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sV2-0k-vME" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
