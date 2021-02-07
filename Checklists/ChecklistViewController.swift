@@ -27,6 +27,14 @@ class ChecklistViewController: UITableViewController {
         item3.text = "Go to bed before midnight"
         items.append(item3)
         
+        let item4 = ChecklistItem()
+        item4.text = "Visit a doctor"
+        items.append(item4)
+        
+        let item5 = ChecklistItem()
+        item5.text = "Finish this app"
+        items.append(item5)
+        
     }
     
     //MARK: - TableView Data Source Methods
@@ -36,18 +44,19 @@ class ChecklistViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath) as UITableViewCell
         
         let item = items[indexPath.row]
         
-        let label = cell.viewWithTag(1) as! UILabel
-        label.text = item.text
+        cell.textLabel?.text = item.text
         
-        if item.checkmark {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
+        cell.accessoryType = item.checkmark ? .checkmark : .none
+        
+//        if item.checkmark {
+//            cell.accessoryType = .checkmark
+//        } else {
+//            cell.accessoryType = .none
+//        }
         
         return cell
     }
@@ -56,17 +65,21 @@ class ChecklistViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let item = items[indexPath.row]
+        //let item = items[indexPath.row]
         
-        if let cell = tableView.cellForRow(at: indexPath) {
-            if item.checkmark {
-                cell.accessoryType = .none
-                item.checkmark = false
-            } else {
-                cell.accessoryType = .checkmark
-                item.checkmark = true
-            }
-        }
+        items[indexPath.row].checkmark.toggle()
+        
+        tableView.reloadData()
+        
+//        if let cell = tableView.cellForRow(at: indexPath) {
+//            if item.checkmark {
+//                cell.accessoryType = .none
+//                item.checkmark = false
+//            } else {
+//                cell.accessoryType = .checkmark
+//                item.checkmark = true
+//            }
+//        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
