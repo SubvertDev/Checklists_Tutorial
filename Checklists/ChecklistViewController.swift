@@ -84,21 +84,27 @@ class ChecklistViewController: UITableViewController {
 //        }
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        items.remove(at: indexPath.row)
+        
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        
     }
     
     //MARK: - Actions
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         
-        let newRowIndex = items.count
-        
         let newItem = ChecklistItem()
         newItem.text = "New row from add button"
         items.append(newItem)
         
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
+        let indexPath = IndexPath(row: items.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
         
     }
     
