@@ -7,13 +7,31 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+    
+    //MARK: - Protocol Delegate Methods
+    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+        
+        items.append(item)
+        
+        let indexPath = IndexPath(row: items.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     var items = [ChecklistItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         let item1 = ChecklistItem()
         item1.text = "Programming"
@@ -37,7 +55,7 @@ class ChecklistViewController: UITableViewController {
         
     }
     
-    //MARK: - TableView Data Source Methods
+    //MARK: - TableView Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -61,7 +79,7 @@ class ChecklistViewController: UITableViewController {
         return cell
     }
     
-    //MARK: - TableView Delegate Methods
+    //MARK: - TableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -82,7 +100,32 @@ class ChecklistViewController: UITableViewController {
 //        }
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        items.remove(at: indexPath.row)
+        
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        
+    }
+    
+    //MARK: - Actions
+    
+    
+    
+    //MARK: - Navigations
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "AddItem" {
+            let controller = segue.destination as! AddItemViewController
+            controller.delegate = self
+        }
+        
+    }
+    
     
 }
 
