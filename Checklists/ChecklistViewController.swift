@@ -25,8 +25,19 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         navigationController?.popViewController(animated: true)
     }
     
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem) {
+        if let index = items.firstIndex(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.textLabel?.text = item.text
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     var items = [ChecklistItem]()
+    var indexPathToEdit: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,11 +82,11 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         
         cell.accessoryType = item.checkmark ? .checkmark : .none
         
-//        if item.checkmark {
-//            cell.accessoryType = .checkmark
-//        } else {
-//            cell.accessoryType = .none
-//        }
+        //        if item.checkmark {
+        //            cell.accessoryType = .checkmark
+        //        } else {
+        //            cell.accessoryType = .none
+        //        }
         
         return cell
     }
@@ -90,30 +101,35 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         
         tableView.reloadData()
         
-//        if let cell = tableView.cellForRow(at: indexPath) {
-//            if item.checkmark {
-//                cell.accessoryType = .none
-//                item.checkmark = false
-//            } else {
-//                cell.accessoryType = .checkmark
-//                item.checkmark = true
-//            }
-//        }
+        //        if let cell = tableView.cellForRow(at: indexPath) {
+        //            if item.checkmark {
+        //                cell.accessoryType = .none
+        //                item.checkmark = false
+        //            } else {
+        //                cell.accessoryType = .checkmark
+        //                item.checkmark = true
+        //            }
+        //        }
         
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
     
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//
-//
-//
-//    }
+    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //
+    //
+    //
+    //    }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
-            //print("Edit swipe button pressed")
+            //            let checklistViewController: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            //            let addItemViewController = checklistViewController.instantiateViewController(withIdentifier: "AddItemViewController") as! AddItemViewController
+            //            addItemViewController.delegate = self
+            //            self.show(addItemViewController, sender: self)
+            self.indexPathToEdit = indexPath.row
+            self.performSegue(withIdentifier: "EditItem", sender: self)
         }
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
@@ -128,10 +144,6 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         return configuration
     }
     
-    //MARK: - Actions
-    
-    
-    
     //MARK: - Navigations
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -139,6 +151,16 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         if segue.identifier == "AddItem" {
             let controller = segue.destination as! AddItemViewController
             controller.delegate = self
+        }
+        
+        if segue.identifier == "EditItem" {
+            let controller = segue.destination as! AddItemViewController
+            controller.delegate = self
+            controller.itemToEdit = items[indexPathToEdit!]
+            
+            //            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+            //                controller.itemToEdit = items[indexPath.row]
+            //            }
         }
         
     }
