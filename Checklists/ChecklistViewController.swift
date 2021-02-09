@@ -10,6 +10,7 @@ import UIKit
 class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
     
     //MARK: - Protocol Delegate Methods
+    
     func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
         navigationController?.popViewController(animated: true)
     }
@@ -103,12 +104,28 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//
+//
+//    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        items.remove(at: indexPath.row)
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
+            //print("Edit swipe button pressed")
+        }
         
-        tableView.deleteRows(at: [indexPath], with: .automatic)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            self.items.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
         
+        editAction.backgroundColor = UIColor.systemGreen
+        deleteAction.backgroundColor = UIColor.systemRed
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return configuration
     }
     
     //MARK: - Actions
