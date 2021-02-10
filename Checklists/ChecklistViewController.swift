@@ -7,15 +7,15 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     //MARK: - Protocol Delegate Methods
     
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController) {
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
         
         items.append(item)
         
@@ -25,7 +25,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         navigationController?.popViewController(animated: true)
     }
     
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditing item: ChecklistItem) {
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
         if let index = items.firstIndex(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
@@ -41,7 +41,6 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -82,12 +81,6 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         
         cell.accessoryType = item.checkmark ? .checkmark : .none
         
-        //        if item.checkmark {
-        //            cell.accessoryType = .checkmark
-        //        } else {
-        //            cell.accessoryType = .none
-        //        }
-        
         return cell
     }
     
@@ -95,39 +88,17 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //let item = items[indexPath.row]
-        
         items[indexPath.row].checkmark.toggle()
         
         tableView.reloadData()
-        
-        //        if let cell = tableView.cellForRow(at: indexPath) {
-        //            if item.checkmark {
-        //                cell.accessoryType = .none
-        //                item.checkmark = false
-        //            } else {
-        //                cell.accessoryType = .checkmark
-        //                item.checkmark = true
-        //            }
-        //        }
         
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
     
-    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //
-    //
-    //
-    //    }
-    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
-            //            let checklistViewController: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            //            let addItemViewController = checklistViewController.instantiateViewController(withIdentifier: "AddItemViewController") as! AddItemViewController
-            //            addItemViewController.delegate = self
-            //            self.show(addItemViewController, sender: self)
             self.indexPathToEdit = indexPath.row
             self.performSegue(withIdentifier: "EditItem", sender: self)
         }
@@ -149,18 +120,14 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "AddItem" {
-            let controller = segue.destination as! AddItemViewController
+            let controller = segue.destination as! ItemDetailViewController
             controller.delegate = self
         }
         
         if segue.identifier == "EditItem" {
-            let controller = segue.destination as! AddItemViewController
+            let controller = segue.destination as! ItemDetailViewController
             controller.delegate = self
             controller.itemToEdit = items[indexPathToEdit!]
-            
-            //            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-            //                controller.itemToEdit = items[indexPath.row]
-            //            }
         }
         
     }
