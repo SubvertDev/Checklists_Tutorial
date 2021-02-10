@@ -24,6 +24,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.largeTitleDisplayMode = .never
         
         if let item = itemToEdit {
@@ -74,6 +75,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         doneButton.isEnabled = false
+        
         return true
     }
     
