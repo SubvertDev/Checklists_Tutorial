@@ -17,26 +17,6 @@ class ChecklistViewController: UITableViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let item1 = ChecklistItem()
-        item1.text = "Programming"
-        items.append(item1)
-        
-        let item2 = ChecklistItem()
-        item2.text = "Read a book"
-        items.append(item2)
-        
-        let item3 = ChecklistItem()
-        item3.text = "Go to bed before midnight"
-        items.append(item3)
-        
-        let item4 = ChecklistItem()
-        item4.text = "Visit a doctor"
-        items.append(item4)
-        
-        let item5 = ChecklistItem()
-        item5.text = "Finish this app"
-        items.append(item5)
-        
     }
     
     //MARK: - TableView Data Source
