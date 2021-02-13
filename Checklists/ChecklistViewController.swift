@@ -53,6 +53,17 @@ class ChecklistViewController: UITableViewController {
         return documentHistory().appendingPathComponent("Checklists.plist")
     }
     
+    func saveChecklistItems() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(items)
+            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+        }
+        catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
+    
     //MARK: - TableView Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
