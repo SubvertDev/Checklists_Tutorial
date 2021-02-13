@@ -87,6 +87,8 @@ class ChecklistViewController: UITableViewController {
         items[indexPath.row].checkmark.toggle()
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        saveChecklistItems()
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -99,6 +101,8 @@ class ChecklistViewController: UITableViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             self.items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            self.saveChecklistItems()
         }
         
         editAction.backgroundColor = UIColor.systemGreen
@@ -140,6 +144,7 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
         let indexPath = IndexPath(row: items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
     
@@ -150,6 +155,8 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
                 cell.textLabel?.text = item.text
             }
         }
+        
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
 }
