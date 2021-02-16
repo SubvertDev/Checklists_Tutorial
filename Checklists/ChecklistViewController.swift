@@ -14,9 +14,46 @@ class ChecklistViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        loadChecklistItems()
+    }
+    
+    //MARK: - Core Data
+    
+    func documentHistory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> URL {
+        return documentHistory().appendingPathComponent("Checklists.plist")
+    }
+    
+    //SAVING
+    func saveChecklistItems() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(items)
+            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+        }
+        catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
+    
+    //LOADING
+    func loadChecklistItems() {
+        let path = dataFilePath()
+        if let data = try? Data(contentsOf: path) {
+            let decoder = PropertyListDecoder()
+            do {
+                items = try decoder.decode([ChecklistItem].self, from: data)
+            }
+            catch {
+                print("Error decoding item array: \(error.localizedDescription)")
+            }
+        }
     }
     
     //MARK: - TableView Data Source
@@ -42,6 +79,8 @@ class ChecklistViewController: UITableViewController {
         items[indexPath.row].checkmark.toggle()
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        saveChecklistItems()
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -54,6 +93,8 @@ class ChecklistViewController: UITableViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             self.items.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            self.saveChecklistItems()
         }
         
         editAction.backgroundColor = UIColor.systemGreen
@@ -95,6 +136,7 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
         let indexPath = IndexPath(row: items.count - 1, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
     
@@ -105,6 +147,8 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
                 cell.textLabel?.text = item.text
             }
         }
+        
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
 }
