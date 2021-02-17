@@ -11,10 +11,12 @@ class ChecklistViewController: UITableViewController {
     
     var items = [ChecklistItem]()
     var indexPathToEdit: Int?
+    var checklist: Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = false
+        title = checklist.name
         
         loadChecklistItems()
     }
