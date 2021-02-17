@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AllListsViewController: UITableViewController {
+class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
 
     let cellIdentifier = "ChecklistCell"
     
@@ -53,6 +53,26 @@ class AllListsViewController: UITableViewController {
         let checklist = lists[indexPath.row]
         performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+//        let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
+//            self.indexPathToEdit = indexPath.row
+//            self.performSegue(withIdentifier: "EditChecklist", sender: self)
+//        }
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            self.lists.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        
+//        editAction.backgroundColor = UIColor.systemGreen
+        deleteAction.backgroundColor = UIColor.systemRed
+        
+//        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
 
     // MARK: - Navigation
     
@@ -60,7 +80,34 @@ class AllListsViewController: UITableViewController {
         if segue.identifier == "ShowChecklist" {
             let controller = segue.destination as! ChecklistViewController
             controller.checklist = sender as? Checklist
+        } else if segue.identifier == "AddChecklist" {
+            let controller = segue.destination as! ListDetailViewController
+            controller.delegate = self
         }
     }
     
+    // MARK: - ListDetailViewController Delegates
+    
+    func listDetailViewControllerDidCancel(_ controller: ListDetailViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func listDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist) {
+        lists.append(checklist)
+        
+        let indexPath = IndexPath(row: lists.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
+        
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
+        if let index = lists.firstIndex(of: checklist) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.textLabel?.text = checklist.name
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
 }
