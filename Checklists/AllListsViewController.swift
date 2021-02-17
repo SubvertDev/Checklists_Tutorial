@@ -11,7 +11,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     
     let cellIdentifier = "ChecklistCell"
     var lists = [Checklist]()
-    var indexPathToEdit: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,8 +56,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, completionHandler) in
-            self.indexPathToEdit = indexPath.row
-            self.performSegue(withIdentifier: "EditChecklist", sender: self)
+            let checklist = self.lists[indexPath.row]
+            self.performSegue(withIdentifier: "EditChecklist", sender: checklist)
         }
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
@@ -85,7 +84,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         } else if segue.identifier == "EditChecklist" {
             let controller = segue.destination as! ListDetailViewController
             controller.delegate = self
-            let checklist = lists[indexPathToEdit!]
+            let checklist = sender as? Checklist
             controller.checklistToEdit = checklist
         }
     }

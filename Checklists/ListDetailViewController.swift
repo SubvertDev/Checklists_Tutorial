@@ -19,7 +19,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     
     weak var delegate: ListDetailViewControllerDelegate?
     
-    var checklistToEdit: Checklist?
+    var checklistToEdit: Checklist!
     
     override func viewDidLoad() {
         super.viewDidLoad()
