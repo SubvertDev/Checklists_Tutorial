@@ -14,7 +14,7 @@ class ChecklistViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
         
         loadChecklistItems()
     }
@@ -30,7 +30,7 @@ class ChecklistViewController: UITableViewController {
         return documentHistory().appendingPathComponent("Checklists.plist")
     }
     
-    //SAVING
+    // --- SAVING ---
     func saveChecklistItems() {
         let encoder = PropertyListEncoder()
         do {
@@ -42,7 +42,7 @@ class ChecklistViewController: UITableViewController {
         }
     }
     
-    //LOADING
+    // --- LOADING ---
     func loadChecklistItems() {
         let path = dataFilePath()
         if let data = try? Data(contentsOf: path) {
