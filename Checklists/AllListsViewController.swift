@@ -11,22 +11,39 @@ class AllListsViewController: UITableViewController {
 
     let cellIdentifier = "ChecklistCell"
     
+    var lists = [Checklist]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        var list = Checklist(name: "First stuff")
+        lists.append(list)
+        
+        list = Checklist(name: "Second things")
+        lists.append(list)
+        
+        list = Checklist(name: "Third crap")
+        lists.append(list)
+        
+        list = Checklist(name: "Fourth trash")
+        lists.append(list)
     }
 
     // MARK: - TableView Data Source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return lists.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-        cell.textLabel!.text = "List item row no. \(indexPath.row)"
+        let checklist = lists[indexPath.row]
+        cell.textLabel?.text = checklist.name
+        cell.accessoryType = .disclosureIndicator
+        
         return cell
     }
     
