@@ -19,43 +19,6 @@ class ChecklistViewController: UITableViewController {
         
     }
     
-    //MARK: - Core Data
-    
-    //    func documentHistory() -> URL {
-    //        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-    //        return paths[0]
-    //    }
-    //
-    //    func dataFilePath() -> URL {
-    //        return documentHistory().appendingPathComponent("Checklists.plist")
-    //    }
-    //
-    //    // --- SAVING ---
-    //    func saveChecklistItems() {
-    //        let encoder = PropertyListEncoder()
-    //        do {
-    //            let data = try encoder.encode(checklist.items)
-    //            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
-    //        }
-    //        catch {
-    //            print("Error encoding item array: \(error.localizedDescription)")
-    //        }
-    //    }
-    //
-    //    // --- LOADING ---
-    //    func loadChecklistItems() {
-    //        let path = dataFilePath()
-    //        if let data = try? Data(contentsOf: path) {
-    //            let decoder = PropertyListDecoder()
-    //            do {
-    //                checklist.items = try decoder.decode([ChecklistItem].self, from: data)
-    //            }
-    //            catch {
-    //                print("Error decoding item array: \(error.localizedDescription)")
-    //            }
-    //        }
-    //    }
-    
     //MARK: - TableView Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
