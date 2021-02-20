@@ -19,7 +19,7 @@ class ChecklistViewController: UITableViewController {
         
     }
     
-    //MARK: - TableView Data Source
+    // MARK: - TableView Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return checklist.items.count
@@ -36,7 +36,7 @@ class ChecklistViewController: UITableViewController {
         return cell
     }
     
-    //MARK: - TableView Delegate
+    // MARK: - TableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checklist.items[indexPath.row].checkmark.toggle()
@@ -65,7 +65,7 @@ class ChecklistViewController: UITableViewController {
         return configuration
     }
     
-    //MARK: - Navigations
+    // MARK: - Navigations
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
@@ -80,7 +80,7 @@ class ChecklistViewController: UITableViewController {
     
 }
 
-//MARK: - Protocol Delegate Methods
+// MARK: - Protocol Delegate Methods
 
 extension ChecklistViewController: ItemDetailViewControllerDelegate {
     
