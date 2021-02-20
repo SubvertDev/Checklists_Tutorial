@@ -29,6 +29,12 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         
         list = Checklist(name: "Fourth trash")
         lists.append(list)
+        
+        for list in lists {
+            let item = ChecklistItem()
+            item.text = "Item for \(list.name)"
+            list.items.append(item)
+        }
     }
     
     // MARK: - TableView Data Source
