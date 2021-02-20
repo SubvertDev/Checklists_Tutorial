@@ -19,24 +19,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         loadChecklists()
-        
-        var list = Checklist(name: "First stuff")
-        lists.append(list)
-        
-        list = Checklist(name: "Second things")
-        lists.append(list)
-        
-        list = Checklist(name: "Third crap")
-        lists.append(list)
-        
-        list = Checklist(name: "Fourth trash")
-        lists.append(list)
-        
-        for list in lists {
-            let item = ChecklistItem()
-            item.text = "Item for \(list.name)"
-            list.items.append(item)
-        }
     }
     
     // MARK: - TableView Data Source
