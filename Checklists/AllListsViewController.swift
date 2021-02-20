@@ -18,6 +18,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
+        loadChecklists()
+        
         var list = Checklist(name: "First stuff")
         lists.append(list)
         
@@ -124,6 +126,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     
     func documentHistory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(paths)
         return paths[0]
     }
     
