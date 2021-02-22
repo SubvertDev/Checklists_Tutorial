@@ -111,21 +111,22 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist) {
         dataModel.lists.append(checklist)
-        
-        let indexPath = IndexPath(row: dataModel.lists.count - 1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-        
+        dataModel.sortChecklists()
+        tableView.reloadData()
         navigationController?.popViewController(animated: true)
+//        let indexPath = IndexPath(row: dataModel.lists.count - 1, section: 0)
+//        tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
-        if let index = dataModel.lists.firstIndex(of: checklist) {
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) {
-                cell.textLabel?.text = checklist.name
-            }
-        }
-        navigationController?.popViewController(animated: true)
+//        if let index = dataModel.lists.firstIndex(of: checklist) {
+            dataModel.sortChecklists()
+            tableView.reloadData()
+            navigationController?.popViewController(animated: true)
+//            let indexPath = IndexPath(row: index, section: 0)
+//            if let cell = tableView.cellForRow(at: indexPath) {
+//                cell.textLabel?.text = checklist.name
+//            }
     }
     
     // MARK: - Navigation Controller Delegates
