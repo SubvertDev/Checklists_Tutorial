@@ -58,4 +58,14 @@ class DataModel {
         let dictionary = ["ChecklistIndex": -1]
         UserDefaults.standard.register(defaults: dictionary)
     }
+    
+    var indexOfSelectedChecklist: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "ChecklistIndex")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "ChecklistIndex")
+        }
+    }
+    
 }
