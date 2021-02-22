@@ -35,7 +35,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     // MARK: - TableView Data Source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.lists.count
     }
@@ -60,7 +59,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     // MARK: - TableView Delegate
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dataModel.indexOfSelectedChecklist = indexPath.row
         let checklist = dataModel.lists[indexPath.row]
@@ -87,7 +85,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     // MARK: - Navigation
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowChecklist" {
             let controller = segue.destination as! ChecklistViewController
@@ -104,7 +101,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     // MARK: - ListDetailViewController Delegates
-    
     func listDetailViewControllerDidCancel(_ controller: ListDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
@@ -114,23 +110,15 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         dataModel.sortChecklists()
         tableView.reloadData()
         navigationController?.popViewController(animated: true)
-//        let indexPath = IndexPath(row: dataModel.lists.count - 1, section: 0)
-//        tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
-//        if let index = dataModel.lists.firstIndex(of: checklist) {
             dataModel.sortChecklists()
             tableView.reloadData()
             navigationController?.popViewController(animated: true)
-//            let indexPath = IndexPath(row: index, section: 0)
-//            if let cell = tableView.cellForRow(at: indexPath) {
-//                cell.textLabel?.text = checklist.name
-//            }
     }
     
     // MARK: - Navigation Controller Delegates
-    
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if viewController === self {
             dataModel.indexOfSelectedChecklist = -1

@@ -40,13 +40,11 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - TableView Delegate
-    
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
     }
     
     // MARK: - Actions
-    
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         delegate?.itemDetailViewControllerDidCancel(self)
     }
@@ -63,7 +61,6 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Text Field Delegate
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldText = textField.text!
         let stringRange = Range(range, in: oldText)!

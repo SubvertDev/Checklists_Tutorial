@@ -38,7 +38,6 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Actions
-    
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         delegate?.listDetailViewControllerDidCancel(self)
     }
@@ -54,7 +53,6 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // MARK: - Text Field Delegate
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldText = textField.text!
         let stringRange = Range(range, in: oldText)!
