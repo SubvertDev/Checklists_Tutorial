@@ -71,21 +71,45 @@
 		B809BF0225CDC18B00BDA60C /* Checklists */ = {
 			isa = PBXGroup;
 			children = (
+				B87B825225E40E5E00F7CB30 /* Data Models */,
+				B87B825025E40DF900F7CB30 /* View Controllers */,
+				B87B825325E40E6D00F7CB30 /* Resources */,
 				B809BF0325CDC18B00BDA60C /* AppDelegate.swift */,
 				B809BF0525CDC18B00BDA60C /* SceneDelegate.swift */,
-				B898C92D25DD9275008F6767 /* Checklist.swift */,
-				B8B117DC25D03D7000F97864 /* ChecklistItem.swift */,
-				B82C65E625E1699B00A09B8A /* DataModel.swift */,
-				B898C92925DD85E8008F6767 /* AllListsViewController.swift */,
-				B8B117E925D0682400F97864 /* ItemDetailViewController.swift */,
-				B809BF0725CDC18B00BDA60C /* ChecklistViewController.swift */,
-				B898C93025DD9883008F6767 /* ListDetailViewController.swift */,
-				B809BF0925CDC18B00BDA60C /* Main.storyboard */,
-				B809BF0C25CDC18C00BDA60C /* Assets.xcassets */,
-				B809BF0E25CDC18C00BDA60C /* LaunchScreen.storyboard */,
 				B809BF1125CDC18C00BDA60C /* Info.plist */,
 			);
 			path = Checklists;
+			sourceTree = "<group>";
+		};
+		B87B825025E40DF900F7CB30 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B898C92925DD85E8008F6767 /* AllListsViewController.swift */,
+				B809BF0725CDC18B00BDA60C /* ChecklistViewController.swift */,
+				B8B117E925D0682400F97864 /* ItemDetailViewController.swift */,
+				B898C93025DD9883008F6767 /* ListDetailViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		B87B825225E40E5E00F7CB30 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				B898C92D25DD9275008F6767 /* Checklist.swift */,
+				B8B117DC25D03D7000F97864 /* ChecklistItem.swift */,
+				B82C65E625E1699B00A09B8A /* DataModel.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		B87B825325E40E6D00F7CB30 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B809BF0925CDC18B00BDA60C /* Main.storyboard */,
+				B809BF0E25CDC18C00BDA60C /* LaunchScreen.storyboard */,
+				B809BF0C25CDC18C00BDA60C /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,7 +340,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7353CQCGQC;
+				DEVELOPMENT_TEAM = ZALNDKVJPQ;
 				INFOPLIST_FILE = Checklists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -338,7 +362,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7353CQCGQC;
+				DEVELOPMENT_TEAM = ZALNDKVJPQ;
 				INFOPLIST_FILE = Checklists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
