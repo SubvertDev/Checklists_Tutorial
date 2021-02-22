@@ -13,6 +13,7 @@ class DataModel {
     
     init() {
         loadChecklists()
+        registerDefaults()
     }
     
     // MARK: - Data Saving
@@ -50,5 +51,11 @@ class DataModel {
                 print("Error decoding item array: \(error.localizedDescription)")
             }
         }
+    }
+    
+    // --- DEFAULTS ---
+    func registerDefaults() {
+        let dictionary = ["ChecklistIndex": -1]
+        UserDefaults.standard.register(defaults: dictionary)
     }
 }
