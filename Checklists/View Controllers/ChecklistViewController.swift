@@ -28,7 +28,8 @@ class ChecklistViewController: UITableViewController {
         
         let item = checklist.items[indexPath.row]
         
-        cell.textLabel?.text = item.text
+        //cell.textLabel?.text = item.text
+        cell.textLabel?.text = "\(item.itemID): \(item.text)"
         cell.accessoryType = item.checkmark ? .checkmark : .none
         
         return cell
