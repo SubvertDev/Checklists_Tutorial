@@ -18,7 +18,7 @@ class ChecklistViewController: UITableViewController {
         title = checklist.name
     }
     
-    // MARK: - TableView Data Source
+    // MARK: - TableView Data Sources
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return checklist.items.count
     }
@@ -29,13 +29,12 @@ class ChecklistViewController: UITableViewController {
         let item = checklist.items[indexPath.row]
         
         cell.textLabel?.text = item.text
-        //cell.textLabel?.text = "\(item.itemID): \(item.text)"
         cell.accessoryType = item.checkmark ? .checkmark : .none
         
         return cell
     }
     
-    // MARK: - TableView Delegate
+    // MARK: - TableView Delegates
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checklist.items[indexPath.row].checkmark.toggle()
         tableView.reloadData()
@@ -78,7 +77,6 @@ class ChecklistViewController: UITableViewController {
 }
 
 // MARK: - Protocol Delegate Methods
-
 extension ChecklistViewController: ItemDetailViewControllerDelegate {
     func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)

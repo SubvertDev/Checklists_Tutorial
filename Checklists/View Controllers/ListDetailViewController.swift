@@ -64,7 +64,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate, Icon
         }
     }
     
-    // MARK: - Text Field Delegate
+    // MARK: - Text Field Delegates
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let oldText = textField.text!
         let stringRange = Range(range, in: oldText)!
@@ -80,7 +80,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate, Icon
         return true
     }
     
-    // MARK: - TableView Data Source?
+    // MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return indexPath.section == 1 ? indexPath : nil
     }
