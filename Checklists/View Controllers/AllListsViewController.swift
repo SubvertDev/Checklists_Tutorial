@@ -15,7 +15,11 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,22 +35,31 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     // MARK: - TableView Data Source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.lists.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let cell: UITableViewCell!
+        if let tmp = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
+            cell = tmp
+        } else {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+        }
         let checklist = dataModel.lists[indexPath.row]
         cell.textLabel?.text = checklist.name
         cell.accessoryType = .disclosureIndicator
-        
+        let uncheckedCount = checklist.countUncheckedItems()
+        if checklist.items.count == 0 {
+            cell.detailTextLabel!.text = "(No Items)"
+        } else {
+            cell.detailTextLabel!.text = uncheckedCount == 0 ? "All Done!" : "\(uncheckedCount) remaining"
+        }
+        cell.imageView!.image = UIImage(named: checklist.iconName)
         return cell
     }
     
     // MARK: - TableView Delegate
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dataModel.indexOfSelectedChecklist = indexPath.row
         let checklist = dataModel.lists[indexPath.row]
@@ -73,7 +86,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     // MARK: - Navigation
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowChecklist" {
             let controller = segue.destination as! ChecklistViewController
@@ -90,32 +102,24 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     // MARK: - ListDetailViewController Delegates
-    
     func listDetailViewControllerDidCancel(_ controller: ListDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist) {
         dataModel.lists.append(checklist)
-        
-        let indexPath = IndexPath(row: dataModel.lists.count - 1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-        
+        dataModel.sortChecklists()
+        tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
-        if let index = dataModel.lists.firstIndex(of: checklist) {
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) {
-                cell.textLabel?.text = checklist.name
-            }
-        }
-        navigationController?.popViewController(animated: true)
+            dataModel.sortChecklists()
+            tableView.reloadData()
+            navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Navigation Controller Delegates
-    
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if viewController === self {
             dataModel.indexOfSelectedChecklist = -1

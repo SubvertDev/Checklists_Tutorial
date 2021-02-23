@@ -112,6 +112,44 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="GCs-VA-p14">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="ei2-16-nSd">
+                                        <rect key="frame" x="0.0" y="97.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ei2-16-nSd" id="Vyh-42-jH2">
+                                            <rect key="frame" x="0.0" y="0.0" width="348" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8SC-Ua-p9z">
+                                                    <rect key="frame" x="16" y="11.5" width="280" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CPE-YX-S9a">
+                                                    <rect key="frame" x="304" y="4" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="9wl-3a-Jet"/>
+                                                        <constraint firstAttribute="height" constant="36" id="MnH-MD-1qF"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CPE-YX-S9a" firstAttribute="top" secondItem="Vyh-42-jH2" secondAttribute="top" constant="4" id="3U4-gk-ccA"/>
+                                                <constraint firstAttribute="trailing" secondItem="CPE-YX-S9a" secondAttribute="trailing" constant="8" id="SMW-3i-9ER"/>
+                                                <constraint firstItem="CPE-YX-S9a" firstAttribute="leading" secondItem="8SC-Ua-p9z" secondAttribute="trailing" constant="8" id="ZRr-zd-1HD"/>
+                                                <constraint firstAttribute="bottom" secondItem="CPE-YX-S9a" secondAttribute="bottom" constant="3.5" id="i9j-BY-cCg"/>
+                                                <constraint firstItem="8SC-Ua-p9z" firstAttribute="leading" secondItem="Vyh-42-jH2" secondAttribute="leadingMargin" id="kN0-PA-hiS"/>
+                                                <constraint firstItem="8SC-Ua-p9z" firstAttribute="centerY" secondItem="CPE-YX-S9a" secondAttribute="centerY" id="xvZ-Va-MQB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="9R7-s0-YjH" kind="show" identifier="PickIcon" id="3Mc-Ef-Wus"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="eKv-oM-S3f" id="4n8-HX-VUr"/>
@@ -132,12 +170,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneBarButton" destination="rZ4-52-YoA" id="gUL-EB-OTu"/>
+                        <outlet property="iconImage" destination="CPE-YX-S9a" id="Amr-ws-18H"/>
                         <outlet property="textField" destination="j8c-5V-Pkx" id="MpV-9s-sUw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2ff-nY-jUQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-202.40000000000001" y="797.45127436281871"/>
+            <point key="canvasLocation" x="-202" y="778"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="pmk-JP-QUF">
@@ -202,7 +241,45 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qBO-Mo-YrZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="521" y="799"/>
+            <point key="canvasLocation" x="1241" y="72"/>
+        </scene>
+        <!--Choose Icon-->
+        <scene sceneID="wOQ-QI-hs7">
+            <objects>
+                <tableViewController id="9R7-s0-YjH" customClass="IconPickerViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cey-si-eEe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IconCell" textLabel="eyH-RU-hhO" style="IBUITableViewCellStyleDefault" id="OKq-eX-3aS">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OKq-eX-3aS" id="g1D-dD-wKq">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eyH-RU-hhO">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9R7-s0-YjH" id="2KQ-gy-TcL"/>
+                            <outlet property="delegate" destination="9R7-s0-YjH" id="MvE-9G-rcC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Choose Icon" id="hax-Ac-pZb"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zh9-Io-Kd2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="521" y="778"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sbz-UD-9my">
@@ -227,9 +304,13 @@
         <segue reference="wQh-cC-BOm"/>
         <segue reference="7g0-YQ-kan"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" systemColor="systemPinkColor"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

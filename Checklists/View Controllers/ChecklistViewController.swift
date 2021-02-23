@@ -14,13 +14,11 @@ class ChecklistViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         title = checklist.name
-        
     }
     
     // MARK: - TableView Data Source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return checklist.items.count
     }
@@ -37,7 +35,6 @@ class ChecklistViewController: UITableViewController {
     }
     
     // MARK: - TableView Delegate
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         checklist.items[indexPath.row].checkmark.toggle()
         tableView.reloadData()
@@ -66,7 +63,6 @@ class ChecklistViewController: UITableViewController {
     }
     
     // MARK: - Navigations
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem" {
             let controller = segue.destination as! ItemDetailViewController
@@ -83,13 +79,11 @@ class ChecklistViewController: UITableViewController {
 // MARK: - Protocol Delegate Methods
 
 extension ChecklistViewController: ItemDetailViewControllerDelegate {
-    
     func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
-        
         checklist.items.append(item)
         
         let indexPath = IndexPath(row: checklist.items.count - 1, section: 0)
@@ -105,7 +99,6 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
                 cell.textLabel?.text = item.text
             }
         }
-        
         navigationController?.popViewController(animated: true)
     }
 }
